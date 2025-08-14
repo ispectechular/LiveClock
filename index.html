@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Life Clock</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Lexend', sans-serif;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .clock-container {
+      width: 400px;
+      height: 250px;
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .clock-title {
+      font-size: 2rem;
+      color: #4A7A92;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .clock-time {
+      font-size: 4rem;
+      color: #756A85;
+      font-weight: 700;
+    }
+
+    .clock-ampm {
+      font-size: 1.5rem;
+      color: #879B8D;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <div class="clock-title">Current Time</div>
+    <div class="clock-time"><span id="clock"></span><span class="clock-ampm" id="ampm"></span></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+
+      const paddedMinutes = minutes < 10 ? '0' + minutes : minutes;
+      const paddedSeconds = seconds < 10 ? '0' + seconds : seconds;
+      const timeStr = `${hours}:${paddedMinutes}:${paddedSeconds}`;
+      document.getElementById('clock').textContent = timeStr;
+      document.getElementById('ampm').textContent = ` ${ampm}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>

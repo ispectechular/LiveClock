@@ -18,8 +18,9 @@
     }
 
     .clock-container {
-      width: 400px;
-      height: 250px;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
       background-color: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(10px);
       border-radius: 20px;
@@ -28,6 +29,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
     }
 
     .clock-title {
@@ -41,12 +44,16 @@
       font-size: 4rem;
       color: #756A85;
       font-weight: 700;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .clock-ampm {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: #879B8D;
-      margin-left: 8px;
+      margin-left: 6px;
     }
   </style>
 </head>

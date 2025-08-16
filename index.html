@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Life Clock — Responsive</title>
+  <title>Life Clock — Proportional</title>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -25,44 +25,62 @@
       min-height: 100svh;
     }
 
+    /* The container scales to its parent; TEXT SCALES WITH CONTAINER (via container queries) */
     .clock-container {
       width: 90%;
-      max-width: 900px;     /* large screen cap */
-      aspect-ratio: 4/3;    /* consistent shape */
+      max-width: 900px;
+      aspect-ratio: 4 / 3;
       background-color: var(--glass-bg);
       backdrop-filter: blur(10px);
       border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 4%;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       gap: 1rem;
+
+      /* Enable container query units (cqw) based on the container's inline size */
+      container-type: inline-size;
+
+      /* Set a base font-size that follows the box width.
+         10cqw = 10% of the container's width. Clamp keeps it usable at extremes. */
+      font-size: clamp(16px, 10cqw, 72px);
     }
 
+    /* Child font-sizes use em so they scale with the container’s base font-size above */
     .clock-title {
-      font-size: clamp(1.5rem, 3vw, 3rem);
+      font-size: 0.35em;           /* scales with container */
       color: var(--slate-blue);
       font-weight: 700;
       margin: 0;
+      line-height: 1.1;
+      text-align: center;
     }
 
     .clock-time {
-      font-size: clamp(2.5rem, 8vw, 8rem);
+      font-size: 1.6em;            /* main time size, proportional to box */
       color: var(--soft-purple);
       font-weight: 700;
       display: flex;
       align-items: baseline;
       justify-content: center;
-      flex-wrap: wrap;
       line-height: 1;
+      gap: 0.15em;
+      flex-wrap: wrap;
+      text-align: center;
     }
 
     .clock-ampm {
-      font-size: clamp(1rem, 2vw, 2rem);
+      font-size: 0.35em;           /* smaller AM/PM, still proportional */
       color: var(--muted-green);
-      margin-left: 0.5rem;
+      font-weight: 700;
+    }
+
+    /* Optional: if you want edge-to-edge in a browser, change width to 100% */
+    @media (max-width: 480px) {
+      .clock-container { width: 100%; }
     }
   </style>
 </head>
@@ -85,10 +103,11 @@
       hours = hours % 12;
       hours = hours ? hours : 12;
 
-      const paddedMinutes = minutes < 10 ? '0' + minutes : minutes;
-      const paddedSeconds = seconds < 10 ? '0' + seconds : seconds;
-      const timeStr = `${hours}:${paddedMinutes}:${paddedSeconds}`;
-      document.getElementById('clock').textContent = timeStr;
+      // Minutes and seconds always 2 digits
+      const mm = minutes < 10 ? '0' + minutes : String(minutes);
+      const ss = seconds < 10 ? '0' + seconds : String(seconds);
+
+      document.getElementById('clock').textContent = `${hours}:${mm}:${ss}`;
       document.getElementById('ampm').textContent = ` ${ampm}`;
     }
 

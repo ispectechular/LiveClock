@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Life Clock</title>
+  <title>Life Clock — Responsive</title>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap" rel="stylesheet">
   <style>
+    :root{
+      --slate-blue:#4A7A92;
+      --muted-green:#879B8D;
+      --soft-purple:#756A85;
+      --glass-bg: rgba(255,255,255,0.7);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       margin: 0;
       padding: 0;
@@ -14,52 +22,56 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100svh;
     }
 
     .clock-container {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      background-color: rgba(255, 255, 255, 0.7);
+      width: 90%;
+      max-width: 900px;     /* large screen cap */
+      aspect-ratio: 4/3;    /* consistent shape */
+      background-color: var(--glass-bg);
       backdrop-filter: blur(10px);
       border-radius: 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
-      box-sizing: border-box;
+      padding: 4%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      gap: 1rem;
     }
 
     .clock-title {
-      font-size: 2rem;
-      color: #4A7A92;
-      font-weight: bold;
-      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 3vw, 3rem);
+      color: var(--slate-blue);
+      font-weight: 700;
+      margin: 0;
     }
 
     .clock-time {
-      font-size: 4rem;
-      color: #756A85;
+      font-size: clamp(2.5rem, 8vw, 8rem);
+      color: var(--soft-purple);
       font-weight: 700;
       display: flex;
       align-items: baseline;
       justify-content: center;
       flex-wrap: wrap;
+      line-height: 1;
     }
 
     .clock-ampm {
-      font-size: 1.2rem;
-      color: #879B8D;
-      margin-left: 6px;
+      font-size: clamp(1rem, 2vw, 2rem);
+      color: var(--muted-green);
+      margin-left: 0.5rem;
     }
   </style>
 </head>
 <body>
   <div class="clock-container">
     <div class="clock-title">Current Time</div>
-    <div class="clock-time"><span id="clock"></span><span class="clock-ampm" id="ampm"></span></div>
+    <div class="clock-time">
+      <span id="clock"></span><span class="clock-ampm" id="ampm"></span>
+    </div>
   </div>
 
   <script>
